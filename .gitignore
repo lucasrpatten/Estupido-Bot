@@ -1,0 +1,11 @@
+
+#Node
+node_modules
+
+#ENV
+.env
+.ENV
+
+#vscode
+.history
+.vscode
