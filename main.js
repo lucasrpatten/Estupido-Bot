@@ -1,6 +1,5 @@
-
+//{{{ Imports and Declarations
 require('dotenv').config()
-
 const discord = require('discord.js')
 const config = require('./config.json')
 const { Collection, Intents } = require('discord.js');
@@ -24,10 +23,10 @@ const client = new discord.Client({
     "DIRECT_MESSAGE_TYPING"
   ],
 });
-
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 const prefix = config.prefix;
+//}}}
 
 let prefixCommands = []
 let prefixCommandNameList = []
@@ -41,19 +40,16 @@ for (const file of commandFiles) {
 }
 
 client.on("message", message => {
+  // ignore all messages from bots
   if (message.author.bot) {
     return
   }
-  else {
-    let content = message.content;
-    let cmdAndArgs = content.split(' ');
-    let cmdWithPrefix = cmdAndArgs[0];
-    let cmd = cmdWithPrefix.slice(1);
-    if (cmdWithPrefix.startsWith(prefix) && prefixCommandNameList.includes(cmd)) {
-      Object.values(prefixCommands)[prefixCommandNameList.indexOf(cmd)].execute(message)
-    }
-    return
+  let cmdWithPrefix = message.content.split(' ')[0];
+  let cmd = cmdWithPrefix.slice(1);
+  if (cmdWithPrefix.startsWith(prefix) && prefixCommandNameList.includes(cmd)) {
+    Object.values(prefixCommands)[prefixCommandNameList.indexOf(cmd)].execute(message)
   }
+  return
 
 })
 
