@@ -1,14 +1,20 @@
+function calcGay() {
+  return Math.floor(Math.random() * 101) + "% gay :rainbow_flag:"
+}
+
 module.exports = {
 	"Name": "howgay",
 	"Description": "How homo are you?",
-	async execute(interaction) {
-    user = interaction.content.split(" ")[1]
+	async execute(message) {
+    cmdArray = message.content.split(" ")
+    user = cmdArray[1]
     if (user == undefined) {
-      return interaction.reply("You are " + Math.floor(Math.random() * 101) + "% gay :rainbow_flag:");
+      return message.reply("You are " + calcGay());
     }
-    // add verification to ensure user is mentioned - or add support for anything
     else {
-      return interaction.channel.send(user + "is " + Math.floor(Math.random() * 101) + "% gay :rainbow_flag:");
+      delete cmdArray[0]
+      statement = cmdArray.join(' ');
+      return message.channel.send(statement + " is " + calcGay())
     }
 	},
 };

@@ -5,6 +5,7 @@ const config = require('./config.json')
 const { Collection, Intents } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
+const { error } = require('console');
 const client = new discord.Client({
   intents: [
     "GUILDS",
@@ -54,6 +55,13 @@ client.on("message", message => {
 })
 
 client.on("ready", () => {
+  date = new Date()
+  let botstats = {
+    "onlineSince": date.getTime()
+  }
+  fs.writeFileSync('botstats.json', JSON.stringify(botstats), (error) => {
+    if (error) throw error;
+  })
   console.log("Online")
 })
 

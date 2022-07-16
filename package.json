@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "start": "node main.js",
-    "dev": "nodemon main.js"
+    "dev": "nodemon --ignore ./botstats.json main.js"
   },
   "dependencies": {
     "@discordjs/builders": "^0.15.0",
